@@ -78,7 +78,7 @@ pip install -e .
 There are three possible rendering alternatives when running the environment. These are:
 
 ## Example
-As an example on how to use the Threat Defense environment, we provide a simple Q-learning implementation, [ql-agent-example.py](example/), where a table is used to store the data.
+As an [example on how to use the Threat Defense environment](example/) , we provide a simple Q-learning implementation, where a table is used to store the data.
 
 ## Template
 [How to create new environments for Gym](https://github.com/openai/gym/tree/master/gym/envs#how-to-create-new-environments-for-gym)
