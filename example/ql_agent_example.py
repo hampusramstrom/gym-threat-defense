@@ -8,7 +8,6 @@ from ql_agent_parameters import STATES
 
 
 def choose_action(env, state, Q, i):  # noqa
-    # eps = 1./(i+1)
     eps = 1 - i * 0.001
 
     if random.uniform(0, 1) < eps:

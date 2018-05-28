@@ -8,7 +8,7 @@ by *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*. It constitutes a
 ## The environment
 ![The Threat Defense environment](threat_defense_environment.png?raw=true "The Threat Defense environment")
 
-Above, the Threat Defene environment can be observed. None of the notations or the definitions made in the paper will be explained in the text that follows, but rather the benchmark of the toy example will be stated. If these are desired, please follow the link found earlier to the paper of *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*.
+Above, the Threat Defense environment can be observed. None of the notations or the definitions made in the paper will be explained in the text that follows, but rather the benchmark of the toy example will be stated. If these are desired, please follow the link found earlier to the paper of *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*.
 
 ### Attributes
 Of the 12 attributes that the toy example is built up by, two are leaf attributes (1 and 5) and one is a critical attribute (12). To give the network a more realistic appearance, the 12 attributes are intepreted in the paper as:
@@ -33,7 +33,7 @@ The defender have access to the two following binary actions:
 * *u_1*: Block WebDAV service
 * *u_2*: Disconnect machine 2
 
-Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_1 & u_2*}. 
+Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_1* *&* *u_2*}. 
 
 ### Cost Function
 The cost function is defined as *C(x,u)* = *C(x)* + *D(u)*. 
@@ -47,7 +47,7 @@ The parameters of the problem are:
 
 ```python
 # The probabilities of detection:
-beta = [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.6,0.7,0.85,0.95]
+beta = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.7, 0.6, 0.7, 0.85, 0.95]
 
 # The attack probabilities:
 alpha_1, alpha_5 = 0.5
@@ -78,7 +78,7 @@ pip install -e .
 There are three possible rendering alternatives when running the environment. These are:
 
 ## Example
-As an example on how to use Threat Defense enviornment, we provide a simple Q-learning implementation, [ql-agent-example.py](ql_agent_example.py), where a table is used to store the data.
+As an example on how to use the Threat Defense environment, we provide a simple Q-learning implementation, [ql-agent-example.py](example/ql_agent_example.py), where a table is used to store the data.
 
 ## Template
 [How to create new environments for Gym](https://github.com/openai/gym/tree/master/gym/envs#how-to-create-new-environments-for-gym)
