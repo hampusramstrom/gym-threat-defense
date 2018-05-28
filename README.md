@@ -33,10 +33,10 @@ The defender have access to the two following binary actions:
 * *u_1*: Block WebDAV service
 * *u_2*: Disconnect machine 2
 
-Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_1* *&* *u_2*}. 
+Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_1* *&* *u_2*}.
 
 ### Cost Function
-The cost function is defined as *C(x,u)* = *C(x)* + *D(u)*. 
+The cost function is defined as *C(x,u)* = *C(x)* + *D(u)*.
 
 *C(x)* is the state cost, and is 1 if the state, i.e. *x*, is a critical attribute. Otherwise it is 0.
 
@@ -75,7 +75,37 @@ pip install -e .
 ```
 
 ## Rendering
-There are three possible rendering alternatives when running the environment. These are:
+There are two possible rendering alternatives when running the environment. These are:
+
+* Render to stdout
+* A visual mode which prints the graph and indicate which nodes the attacker has taken over
+
+To do a visual rendering, pass in ```'rgb_array'``` to the render function.
+
+```python
+env.render('rgb_array')
+```
+
+Otherwise, if you want an ASCII representation to stdout, pass in ```'human'```.
+
+```python
+env.render('human')
+```
+
+Example of the printing, where we can see that the agent took the block and
+disconnect action and that the attacker has taken over 5 nodes, represented by
+ones, and turned off nodes by zero. A node with parentheses is a leaf node, aka
+an entrypoint, a square bracket is a normal non-leaf node and a double
+bracketed node is a critical node.
+
+```
+(1) --> [1] --> [0] --> [0]
+		      \--> [0] <-- [0] <-- [1] <-- [1] <-- (1)
+			   \--> [0] <---/
+				  \--> [0] --> [[0]]
+```
+
+By default the mode is set to printing to stdout.
 
 ## Example
 As an [example on how to use the Threat Defense environment](example/) , we provide a simple Q-learning implementation, where a table is used to store the data.

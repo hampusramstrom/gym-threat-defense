@@ -244,6 +244,7 @@ class ThreatDefenseEnv(gym.Env):
 
             print 'Action: %s' % str(self.last_action)
             print fmt_1 + fmt_2 + fmt_3 + fmt_4
+            return
 
         return self.viewer.render(return_rgb_array=mode == 'rgb_array')
 
