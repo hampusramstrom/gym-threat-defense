@@ -2,7 +2,7 @@
 import numpy as np
 import random
 import gym
-import gym_michigan  # noqa
+import gym_threat_defense  # noqa
 
 from ql_agent_parameters import STATES
 
@@ -68,5 +68,5 @@ def q_learning(env):
     print Q
 
 
-env = gym.make('michigan-v0')
+env = gym.make('threat-defense-v0')
 q_learning(env)
