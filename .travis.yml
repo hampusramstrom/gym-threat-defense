@@ -1,0 +1,7 @@
+
+sudo: required
+language: python
+install:
+  - pip install -r requirements.txt
+script:
+  - flake8 --max-complexity 10 gym_threat_defense
