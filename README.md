@@ -38,7 +38,7 @@ Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_
 ### Cost Function
 The cost function is defined as *C(x,u)* = *C(x)* + *D(u)*. 
 
-*C(x)* is the state costs, and is 1 if the state, i.e. *x*, is a critical attribute. Otherwise it is 0.
+*C(x)* is the state cost, and is 1 if the state, i.e. *x*, is a critical attribute. Otherwise it is 0.
 
 *D(u)* is the availability cost of a countermeasure *u*, and is 0 if the countermeasure is *none*, 1 if it is *u_1* or *u_2* and 5 if it is both *u_1* and *u_2*.
 
@@ -78,7 +78,7 @@ pip install -e .
 There are three possible rendering alternatives when running the environment. These are:
 
 ## Example
-As an example on how to use the Threat Defense environment, we provide a simple Q-learning implementation, [ql-agent-example.py](example/ql_agent_example.py), where a table is used to store the data.
+As an example on how to use the Threat Defense environment, we provide a simple Q-learning implementation, [ql-agent-example.py](example/), where a table is used to store the data.
 
 ## Template
 [How to create new environments for Gym](https://github.com/openai/gym/tree/master/gym/envs#how-to-create-new-environments-for-gym)
