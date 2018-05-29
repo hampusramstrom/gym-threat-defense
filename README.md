@@ -66,6 +66,7 @@ pi_0 = [1,0,...,0]
 
 ## Dependencies
 - OpenAI Gym
+- Numpy
 
 ## Installation
 
