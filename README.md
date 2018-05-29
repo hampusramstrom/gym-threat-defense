@@ -86,15 +86,14 @@ To do a visual rendering, pass in ```'rgb_array'``` to the render function.
 env.render('rgb_array')
 ```
 
-Otherwise, if you want an ASCII representation to stdout, pass in ```'human'```.
+Otherwise, for an ASCII representation to stdout, pass in ```'human'```.
 
 ```python
 env.render('human')
 ```
 
-Example of the printing, where we can see that the agent took the block and
-disconnect action and that the attacker has taken over 5 nodes, represented by
-ones, and turned off nodes by zero. A node with parentheses is a leaf node, aka
+Example of the printing, where we can see that the agent took the block and disconnect action. The attacker has enabled five attributes, i.e. nodes, represented by
+ones, where the non-enabled attributes are represented by zeros. A node with parentheses is a leaf node, also known as
 an entrypoint, a square bracket is a normal non-leaf node and a double
 bracketed node is a critical node.
 
@@ -108,7 +107,7 @@ bracketed node is a critical node.
 By default the mode is set to printing to stdout.
 
 ## Example
-As an [example on how to use the Threat Defense environment](example/) , we provide a simple Q-learning implementation, where a table is used to store the data.
+As an [example on how to use the Threat Defense environment](example/), we provide a simple Q-learning implementation, where a table is used to store the data.
 
 ## Template
 [How to create new environments for Gym](https://github.com/openai/gym/tree/master/gym/envs#how-to-create-new-environments-for-gym)
