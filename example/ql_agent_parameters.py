@@ -1,3 +1,10 @@
+"""
+The state matrix, containing all states in the Threat Defense environment.
+
+Authors:
+Johan Backman - johback@student.chalmers.se
+Hampus Ramstrom - hampusr@student.chalmers.se
+"""
 
 import numpy as np
 

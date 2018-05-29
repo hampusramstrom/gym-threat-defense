@@ -92,7 +92,7 @@ class ThreatDefenseEnv(gym.Env):
         """POMDP environment."""
         self.action_space = Discrete(len(Action))
         self.state_space = Discrete(STATES.shape[0])
-        self.observation_space = Discrete(OBSERVATIONS.shape[0])
+        self.observation_space = Discrete(OBSERVATIONS.shape[1])
         self.last_obs = None
         self.viewer = None
 
