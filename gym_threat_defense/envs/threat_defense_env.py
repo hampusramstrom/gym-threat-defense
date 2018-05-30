@@ -93,6 +93,7 @@ class ThreatDefenseEnv(gym.Env):
         self.action_space = Discrete(len(Action))
         self.state_space = Discrete(STATES.shape[0])
         self.observation_space = Discrete(OBSERVATIONS.shape[1])
+        self.all_states = STATES
         self.last_obs = None
         self.viewer = None
 

@@ -12,8 +12,6 @@ import random
 import gym
 import gym_threat_defense  # noqa
 
-from ql_agent_parameters import STATES
-
 
 def choose_action(env, state, Q, i):  # noqa
     """
@@ -38,19 +36,21 @@ def choose_action(env, state, Q, i):  # noqa
     else:
         return np.argmax(Q[state])
 
-def get_index_in_matrix(observation):
+
+def get_index_in_matrix(env, observation):
     """
     Retrieves the index of an observation in the STATES matrix,
     containing all states.
 
     Arguments:
+    env -- the Threat Defense gym environment.
     observation -- an observation as a binary vector of length 12.
 
     Returns:
     A numeric index.
     """
-    for i in range(STATES.shape[0]):
-        if np.array_equal(observation, STATES[i]):
+    for i in range(env.all_states.shape[0]):
+        if np.array_equal(observation, env.all_states[i]):
             return i
 
 
@@ -72,7 +72,7 @@ def q_learning(env):
 
     for i in range(num_episodes):
         s_list = env.reset()
-        s = get_index_in_matrix(s_list)
+        s = get_index_in_matrix(env, s_list)
         done = False
         j = 0
         r_all = 0
@@ -81,7 +81,7 @@ def q_learning(env):
             j += 1
             a = choose_action(env, s, Q, i)
             sn_list, r, done, _ = env.step(a)
-            sn = get_index_in_matrix(sn_list)
+            sn = get_index_in_matrix(env, sn_list)
             Q[s, a] = Q[s, a] + alpha * (r + gamma * np.max(Q[sn]) - Q[s, a])
             s = sn
             r_all += r
