@@ -46,8 +46,8 @@ def q_learning(env):
         while j < 99:
             j += 1
             a = choose_action(env, s, Q, i)
-            #sn_list, r, done, _ = env.step(a)
-            #sn = get_index_in_matrix(sn_list)
+            # sn_list, r, done, _ = env.step(a)
+            # sn = get_index_in_matrix(sn_list)
             sn_list, r, done, info = env.step(a)
             sn = get_index_in_matrix(info['state'])
             Q[s, a] = Q[s, a] + alpha * (r + gamma * np.max(Q[sn]) - Q[s, a])
