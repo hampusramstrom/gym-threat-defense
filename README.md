@@ -8,7 +8,7 @@ by *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*. It constitutes a
 ## The environment
 ![The Threat Defense environment](threat_defense_environment.png?raw=true "The Threat Defense environment")
 
-Above, the Threat Defense environment can be observed. None of the notations or the definitions made in the paper will be explained in the text that follows, but rather the benchmark of the toy example will be stated. If these are desired, please follow the link found earlier to the paper of *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*.
+Above, the Threat Defense environment can be observed. None of the notations or the definitions made in the paper will be explained in the text that follows, but rather the benchmark of the toy example will be stated. If these are desired, follow the link found earlier to the paper of *Miehling, E., Rasouli, M., & Teneketzis, D. (2015)*.
 
 ### Attributes
 Of the 12 attributes that the toy example is built up by, two are leaf attributes (1 and 5) and one is a critical attribute (12). To give the network a more realistic appearance, the 12 attributes are intepreted in the paper as:
@@ -38,7 +38,7 @@ Thus we have four countermeasures to apply, i.e *U* = {*none*, *u_1*, *u_2*, *u_
 ### Cost Function
 The cost function is defined as *C(x,u)* = *C(x)* + *D(u)*.
 
-*C(x)* is the state cost, and is 1 if the state, i.e. *x*, is a critical attribute. Otherwise it is 0.
+*C(x)* is the state cost, and is 1 if the state, that is *x*, is a critical attribute. Otherwise it is 0.
 
 *D(u)* is the availability cost of a countermeasure *u*, and is 0 if the countermeasure is *none*, 1 if it is *u_1* or *u_2* and 5 if it is both *u_1* and *u_2*.
 
@@ -87,6 +87,8 @@ To do a visual rendering, pass in ```'rgb_array'``` to the render function.
 env.render('rgb_array')
 ```
 
+![GUI rendering](rendering.png?raw=true "GUI rendering")
+
 Otherwise, for an ASCII representation to stdout, pass in ```'human'```.
 
 ```python
@@ -95,10 +97,11 @@ env.render('human')
 
 Example of the printing, where we can see that the agent took the block and disconnect action. The attacker has enabled five attributes, i.e. nodes, represented by
 ones, where the non-enabled attributes are represented by zeros. A node with parentheses is a leaf node, also known as
-an entrypoint, a square bracket is a normal non-leaf node and a double
+an entry-point, a square bracket is a normal non-leaf node and a double
 bracketed node is a critical node.
 
 ```
+Action: Block WebDAV service and Disconnect machine 2
 (1) --> [1] --> [0] --> [0]
 		      \--> [0] <-- [0] <-- [1] <-- [1] <-- (1)
 			   \--> [0] <---/
