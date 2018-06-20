@@ -13,16 +13,16 @@ import gym
 import gym_threat_defense  # noqa
 
 
-def choose_action(env, state, Q, i):  # noqa
+def choose_action(env, observation, q, i):  # noqa
     """
     Chooses a new action, either randomly or the one with
     max value in the Q table, depending on the amount of randomness.
 
     Arguments:
     env -- the Threat Defense gym environment.
-    state -- the current state as its numeric index in the STATES matrix,
+    observation -- an observation as its numeric index in the states matrix,
         containing all states.
-    Q -- the Q table, containing the data.
+    q -- the Q table, containing the data.
     i -- the current episode in the simulation.
 
     Returns:
@@ -34,7 +34,7 @@ def choose_action(env, state, Q, i):  # noqa
     if random.uniform(0, 1) < eps:
         return env.action_space.sample()
     else:
-        return np.argmax(Q[state])
+        return np.argmax(q[observation])
 
 
 def get_index_in_matrix(env, observation):
@@ -63,7 +63,7 @@ mean reward for the last 100 episodes as well as printing the Q-table at the
     Arguments:
     env -- the Threat Defense gym environment.
     """
-    Q = np.zeros([env.observation_space.n, env.action_space.n])
+    q = np.zeros([env.observation_space.n, env.action_space.n])
     alpha = 0.3
     gamma = 0.8
     num_episodes = 2000
@@ -71,20 +71,20 @@ mean reward for the last 100 episodes as well as printing the Q-table at the
     rewards = []
 
     for i in range(num_episodes):
-        s_list = env.reset()
-        s = get_index_in_matrix(env, s_list)
+        o_list = env.reset()
+        o = get_index_in_matrix(env, o_list)
         done = False
         j = 0
         r_all = 0
 
         while j < 99:
             j += 1
-            a = choose_action(env, s, Q, i)
+            a = choose_action(env, o, q, i)
 
-            sn_list, r, done, info = env.step(a)
-            sn = get_index_in_matrix(info['state'])
-            Q[s, a] = Q[s, a] + alpha * (r + gamma * np.max(Q[sn]) - Q[s, a])
-            s = sn
+            on_list, r, done, _ = env.step(a)
+            on = get_index_in_matrix(env, on_list)
+            q[o, a] = q[o, a] + alpha * (r + gamma * np.max(q[on]) - q[o, a])
+            o = on
             r_all += r
 
             if done:
@@ -98,7 +98,7 @@ mean reward for the last 100 episodes as well as printing the Q-table at the
 
     print "Score over time: " + str(sum(rewards) / num_episodes)
     print "Final Q-Table values"
-    print Q
+    print q
 
 
 env = gym.make('threat-defense-v0')
