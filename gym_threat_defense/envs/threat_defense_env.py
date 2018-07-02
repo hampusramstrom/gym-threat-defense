@@ -92,7 +92,7 @@ class ThreatDefenseEnv(gym.Env):
         """POMDP environment."""
         self.action_space = Discrete(len(Action))
         self.state_space = Discrete(STATES.shape[0])
-        self.observation_space = Discrete(OBSERVATIONS.shape[1])
+        self.observation_space = Discrete(OBSERVATIONS.shape[0])
         self.all_states = STATES
         self.last_obs = None
         self.viewer = None
@@ -289,7 +289,7 @@ class ThreatDefenseEnv(gym.Env):
         Returns:
         An Observation containing a binary vector of length 12.
         """
-        probs = OBSERVATIONS[action.value][state.index]
+        probs = OBSERVATIONS[state.index]
         self.last_obs = Observation(np.random.choice(probs.shape[0], p=probs))
         return self.last_obs
 
@@ -313,5 +313,5 @@ class ThreatDefenseEnv(gym.Env):
 
         """
         return {'last_transition': TRANSITIONS[action.value][old_state.index],
-                'last_observation': OBSERVATIONS[action.value][old_state.index],  # noqa
+                'last_observation': OBSERVATIONS[new_state.index],  # noqa
                 'state': new_state.as_list()}
