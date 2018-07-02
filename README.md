@@ -111,7 +111,9 @@ Action: Block WebDAV service and Disconnect machine 2
 By default the mode is set to printing to stdout.
 
 ## Example
-As an [example on how to use the Threat Defense environment](example/), we provide a simple Q-learning implementation, where a table is used to store the data.
+As an [example on how to use the Threat Defense environment](examples/), we provide a couple of algorithms that
+uses both configurations of the environment. Read the README in the ```examples/``` directory for more information
+on which algorithm works with which.
 
 ## Template
 [How to create new environments for Gym](https://github.com/openai/gym/tree/master/gym/envs#how-to-create-new-environments-for-gym)
