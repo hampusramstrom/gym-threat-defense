@@ -220,7 +220,6 @@ class ThreatDefenseEnv(gym.Env):
 
             c.add_attr(c_trans)
 
-        # TODO(johan): fix this
         # Draw text
         def draw_text(x, y, txt):
             node_txt = pyglet.text.Label(

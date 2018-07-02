@@ -52,7 +52,7 @@ REWARDS = np.array([
 
 
 def transition_matrix():
-    """TODO docstring."""
+    """Get the transition matrix for the Michigan env."""
     none = np.array([
         [0.25, 0.25, 0.25, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

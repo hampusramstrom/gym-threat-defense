@@ -57,7 +57,7 @@ def get_index_in_matrix(env, observation):
 def q_learning(env):
     """
     Runs Q-learning with a simple table for storing the data and prints the
-    mean reward for the last 100 episodes as well as printing the Q-table at the
+mean reward for the last 100 episodes as well as printing the Q-table at the
     end of the simulation.
 
     Arguments:
@@ -80,6 +80,7 @@ def q_learning(env):
         while j < 99:
             j += 1
             a = choose_action(env, o, q, i)
+
             on_list, r, done, _ = env.step(a)
             on = get_index_in_matrix(env, on_list)
             q[o, a] = q[o, a] + alpha * (r + gamma * np.max(q[on]) - q[o, a])
