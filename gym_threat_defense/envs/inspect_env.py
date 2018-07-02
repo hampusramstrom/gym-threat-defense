@@ -12,25 +12,28 @@ from gym.spaces import Discrete
 from enum import Enum
 
 from base_env import BaseEnv
-from defense_env_parameters import STATES, REWARDS, TRANSITIONS, OBSERVATIONS
+from inspect_env_parameters import STATES, REWARDS, TRANSITIONS, OBSERVATIONS
 
 
 class Action(Enum):
     """
     The Action class, containing an action, i.e. a counter-measure.
 
-    Defined as a numeric value [0, 3].
+    Defined as a numeric value [0, 4].
     """
 
     NONE = 0
-    BLOCK = 1
-    DISCONNECT = 2
-    BOTH = 3
+    INSPECT = 1
+    BLOCK = 2
+    DISCONNECT = 3
+    BOTH = 4
 
     def __str__(self):
         """Action to string representation."""
         if self._value_ == Action.NONE:
             return 'None'
+        elif self._value_ == Action.INSPECT:
+            return 'Inspect state of network'
         elif self._value_ == Action.BLOCK:
             return 'Block WebDAV service'
         elif self._value_ == Action.DISCONNECT:
@@ -47,7 +50,7 @@ class State():
     """
 
     def __init__(self, index):
-        """Initilize a state in the MDP."""
+        """Initiate a state in the MDP."""
         self.index = index
 
     def as_list(self):
@@ -72,14 +75,14 @@ class Observation():
         return STATES[self.index]
 
 
-class ThreatDefenseEnv(BaseEnv):
+class ThreatDefenseInspectEnv(BaseEnv):
     """
     The class of the Defense environment.
 
     An OpenAI environment of the toy example given in Optimal Defense
     Policies for Partially Observable Spreading Processes on Bayesian Attack
     Graphs by Miehling, E., Rasouli, M., & Teneketzis, D. (2015). It
-    constitutes a 29-state/observation, 4-action POMDP defense problem.
+    constitutes a 29-state/observation, 5-action POMDP defense problem.
     """
 
     metadata = {'render.modes': ['human', 'rgb_array']}
@@ -90,8 +93,6 @@ class ThreatDefenseEnv(BaseEnv):
         self.state_space = Discrete(STATES.shape[0])
         self.observation_space = Discrete(OBSERVATIONS.shape[0])
         self.all_states = STATES
-        self.last_obs = None
-        self.viewer = None
 
     def step(self, action):
         """
@@ -107,7 +108,6 @@ class ThreatDefenseEnv(BaseEnv):
         r -- the reward gained as an integer.
         d -- boolean indicating if the simulation is done or not.
         i -- simulation meta-data as a dictionary.
-
         """
         assert self.action_space.contains(action)
         assert self.done is not True
@@ -126,8 +126,12 @@ class ThreatDefenseEnv(BaseEnv):
         self.state = self._next_state(action, old_state)
         self.info = self._update_info(action, old_state, self.state)
 
-        return self._sample_observation(self.state).as_list(), \
-            reward, self.done, self.info
+        if action == Action.INSPECT:
+            return (self._sample_observation(self.state).as_list(),
+                    self.state.as_list()), reward, self.done, self.info
+        else:
+            return (self._sample_observation(self.state).as_list(),), \
+                reward, self.done, self.info
 
     def reset(self):
         """
@@ -141,7 +145,7 @@ class ThreatDefenseEnv(BaseEnv):
         self.last_action = Action.NONE
         self.t = 0
         self.info = {}
-        return self.state.as_list()
+        return (self.state.as_list(),)
 
     def _next_state(self, action, state):
         """
