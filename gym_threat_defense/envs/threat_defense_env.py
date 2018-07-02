@@ -129,7 +129,7 @@ class ThreatDefenseEnv(gym.Env):
         self.state = self._next_state(action, old_state)
         self.info = self._update_info(action, old_state, self.state)
 
-        return self._sample_observation(action, old_state).as_list(), \
+        return self._sample_observation(self.state).as_list(), \
             reward, self.done, self.info
 
     def reset(self):
@@ -278,7 +278,7 @@ class ThreatDefenseEnv(gym.Env):
         return self.last_action.value is Action.BOTH.value or \
             time_step >= 100
 
-    def _sample_observation(self, action, state):
+    def _sample_observation(self, state):
         """
         Generate a new observation from the current state and action taken.
 
