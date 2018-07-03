@@ -5,6 +5,7 @@ import random
 import gym
 import gym_threat_defense  # noqa
 
+
 def choose_action(env, s):
     if s == env.state_space.n - 2:
         if random.randint(0, 1) == 0:
@@ -13,6 +14,8 @@ def choose_action(env, s):
             return 2
     else:
         return 0
+
+
 def get_index_in_matrix(env, observation):
     """
     Retrieves the index of an observation in the STATES matrix,
@@ -28,6 +31,7 @@ def get_index_in_matrix(env, observation):
     for i in range(env.all_states.shape[0]):
         if np.array_equal(observation, env.all_states[i]):
             return i
+
 
 def optimal(env):
 
@@ -58,6 +62,7 @@ def optimal(env):
             print "Score over the last 100 episodes: " + \
                 str(sum(rewards[(i - 100):i]) / 100)
     print "Score over time: " + str(sum(rewards) / num_episodes)
+
 
 env = gym.make('threat-defense-v0')
 optimal(env)
