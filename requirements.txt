@@ -3,3 +3,8 @@ pyflakes
 pydocstyle
 pep8-naming
 mccabe
+tensorflow
+gym
+numpy
+networkx
+pyglet
