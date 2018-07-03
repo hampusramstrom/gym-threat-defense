@@ -64,6 +64,9 @@ def optimal(env):
 
         print "Simulation:", j
 
+    all_averages = np.mean(rewards, axis=0).tolist()
+    stds = np.std(rewards, axis=0).tolist()
+
     with open('optimal_res.csv', 'w') as f:
       writer = csv.writer(f, delimiter='\t')
       episode_numbers = ['E'] + range(1, num_episodes + 1)
