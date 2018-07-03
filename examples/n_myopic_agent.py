@@ -27,7 +27,7 @@ def get_index_in_matrix(env, observation):
             return i
 
 
-def myopic_learning(env):
+def n_myopic(env):
     emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
     emp_inspect[env.observation_space.n - 1, env.state_space.n - 1] = 1
     num_episodes = 800
@@ -96,4 +96,4 @@ def myopic_learning(env):
 
 
 env = gym.make('threat-defense-inspect-v0')
-myopic_learning(env)
+n_myopic(env)

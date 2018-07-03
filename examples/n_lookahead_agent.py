@@ -53,7 +53,7 @@ def update_matrixes(emp_inspect, trans_matrix, a, o_list, old_ind_s):
     return emp_inspect, trans_matrix, old_ind_s
 
 
-def n_step_ahead_learning(env, n):
+def n_lookahead(env, n):
     emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
     trans_matrix = np.zeros([env.state_space.n, env.state_space.n])
 
@@ -128,4 +128,4 @@ def n_step_ahead_learning(env, n):
 
 
 env = gym.make('threat-defense-inspect-v0')
-n_step_ahead_learning(env, 0)
+n_lookahead(env, 0)
