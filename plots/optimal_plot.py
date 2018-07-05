@@ -41,6 +41,7 @@ def optimal(env):
     num_episodes = 1000
 
     rewards = np.zeros([n_simulations, num_episodes])
+    time = np.zeros([n_simulations, num_episodes])
 
     for j in range(n_simulations):
         for i in range(num_episodes):
@@ -49,8 +50,11 @@ def optimal(env):
             done = False
             r_all = 0
 
+            k = 0
+
             while True:
                 a = choose_action(env, s)
+                k += 1
                 _, r, done, info = env.step(a)
                 s_list = info['state']
                 s = get_index_in_matrix(env, s_list)
@@ -61,28 +65,50 @@ def optimal(env):
                     break
 
             rewards[j,i] = r_all
+            time[j,i] = k
 
         print "Simulation:", j
 
-    all_averages = np.mean(rewards, axis=0).tolist()
-    stds = np.std(rewards, axis=0).tolist()
+    reward_averages = np.mean(rewards, axis=0).tolist()
+    time_averages = np.mean(time, axis=0).tolist()
+    reward_stds = np.std(rewards, axis=0).tolist()
+    time_stds = np.std(time, axis=0).tolist()
 
     with open('optimal_res.csv', 'w') as f:
-      writer = csv.writer(f, delimiter='\t')
-      episode_numbers = ['E'] + range(1, num_episodes + 1)
-      writer.writerows(zip(episode_numbers, ['A'] + all_averages))
+        writer = csv.writer(f, delimiter='\t')
+        episode_numbers = ['E'] + range(1, num_episodes + 1)
+        writer.writerows(zip(episode_numbers, ['A'] + reward_averages))
+
+    with open('optimal_time.csv', 'w') as f:
+        writer = csv.writer(f, delimiter='\t')
+        episode_numbers = ['E'] + range(1, num_episodes + 1)
+        writer.writerows(zip(episode_numbers, ['A'] + time_averages))
 
     with open('optimal_res_std_high.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
-        stds_up = map(lambda x: x[0] + x[1], zip(all_averages, stds))
+        stds_up = map(lambda x: x[0] + x[1], zip(reward_averages, reward_stds))
 
         writer.writerows(zip(episode_numbers, ['V'] + stds_up))
 
     with open('optimal_res_std_low.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
-        stds_up = map(lambda x: x[0] - x[1], zip(all_averages, stds))
+        stds_up = map(lambda x: x[0] - x[1], zip(reward_averages, reward_stds))
+
+        writer.writerows(zip(episode_numbers, ['V'] + stds_up))
+
+    with open('optimal_time_std_high.csv', 'w') as f:
+        writer = csv.writer(f, delimiter='\t')
+        episode_numbers = ['E'] + range(1, num_episodes + 1)
+        stds_up = map(lambda x: x[0] + x[1], zip(time_averages, time_stds))
+
+        writer.writerows(zip(episode_numbers, ['V'] + stds_up))
+
+    with open('optimal_time_std_low.csv', 'w') as f:
+        writer = csv.writer(f, delimiter='\t')
+        episode_numbers = ['E'] + range(1, num_episodes + 1)
+        stds_up = map(lambda x: x[0] - x[1], zip(time_averages, time_stds))
 
         writer.writerows(zip(episode_numbers, ['V'] + stds_up))
 

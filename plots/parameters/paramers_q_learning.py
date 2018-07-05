@@ -6,7 +6,7 @@ import gym_threat_defense # noqa
 
 
 def choose_action(env, state, q, i):  # noqa
-    eps = 1 - i * 0.001
+    eps = 1 - i * 0.0001
 
     if random.uniform(0, 1) < eps:
         return env.action_space.sample()

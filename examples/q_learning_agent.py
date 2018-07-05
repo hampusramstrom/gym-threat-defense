@@ -64,8 +64,8 @@ mean reward for the last 100 episodes as well as printing the Q-table at the
     env -- the Threat Defense gym environment.
     """
     q = np.zeros([env.observation_space.n, env.action_space.n])
-    alpha = 0.3
-    gamma = 0.8
+    alpha = 0.1
+    gamma = 0.7
     num_episodes = 2000
 
     rewards = []
@@ -74,11 +74,9 @@ mean reward for the last 100 episodes as well as printing the Q-table at the
         o_list = env.reset()
         o = get_index_in_matrix(env, o_list)
         done = False
-        j = 0
         r_all = 0
 
-        while j < 99:
-            j += 1
+        while True:
             a = choose_action(env, o, q, i)
 
             on_list, r, done, _ = env.step(a)
