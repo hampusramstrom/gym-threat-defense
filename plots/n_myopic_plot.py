@@ -39,7 +39,7 @@ def n_myopic(env):
         emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
         emp_inspect[env.observation_space.n - 1, env.state_space.n - 1] = 1
 
-        eps = 1
+        eps = 10
 
         action_steps = []
         action_steps.append((4,))
@@ -86,9 +86,13 @@ def n_myopic(env):
                     last_a = a
                 elif i == eps:
                     for j in range(len(action_steps_matrix)):
-                        average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
-                            np.count_nonzero(action_steps_matrix[j])) / \
+                        if np.count_nonzero(action_steps_matrix[j]) == 0:
+                            average_len_of_a[j] = np.sum(action_steps_matrix[j]) / \
                             abs(action_costs[j + 2])
+                        else:
+                            average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
+                                np.count_nonzero(action_steps_matrix[j])) / \
+                                abs(action_costs[j + 2])
                     opt_a = np.argmax(average_len_of_a) + 2
 
                 if done:
@@ -104,38 +108,38 @@ def n_myopic(env):
     reward_stds = np.std(rewards, axis=0).tolist()
     time_stds = np.std(time, axis=0).tolist()
 
-    with open('n_myopic_n_0_eps_1_res.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_res.csv', 'w') as f:
       writer = csv.writer(f, delimiter='\t')
       episode_numbers = ['E'] + range(1, num_episodes + 1)
       writer.writerows(zip(episode_numbers, ['A'] + reward_averages))
 
-    with open('n_myopic_n_0_eps_1_time.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_time.csv', 'w') as f:
       writer = csv.writer(f, delimiter='\t')
       episode_numbers = ['E'] + range(1, num_episodes + 1)
       writer.writerows(zip(episode_numbers, ['A'] + time_averages))
 
-    with open('n_myopic_n_0_eps_1_res_std_high.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_res_std_high.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
         stds_up = map(lambda x: x[0] + x[1], zip(reward_averages, reward_stds))
 
         writer.writerows(zip(episode_numbers, ['V'] + stds_up))
 
-    with open('n_myopic_n_0_eps_1_res_std_low.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_res_std_low.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
         stds_up = map(lambda x: x[0] - x[1], zip(reward_averages, reward_stds))
 
         writer.writerows(zip(episode_numbers, ['V'] + stds_up))
 
-    with open('n_myopic_n_0_eps_1_time_std_high.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_time_std_high.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
         stds_up = map(lambda x: x[0] + x[1], zip(time_averages, time_stds))
 
         writer.writerows(zip(episode_numbers, ['V'] + stds_up))
 
-    with open('n_myopic_n_0_eps_1_time_std_low.csv', 'w') as f:
+    with open('n_myopic_n_0_eps_10_time_std_low.csv', 'w') as f:
         writer = csv.writer(f, delimiter='\t')
         episode_numbers = ['E'] + range(1, num_episodes + 1)
         stds_up = map(lambda x: x[0] - x[1], zip(time_averages, time_stds))

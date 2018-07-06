@@ -75,9 +75,13 @@ def n_myopic(env):
                 last_a = a
             elif i == eps:
                 for j in range(len(action_steps_matrix)):
-                    average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
-                        np.count_nonzero(action_steps_matrix[j])) / \
+                    if np.count_nonzero(action_steps_matrix[j]) == 0:
+                        average_len_of_a[j] = np.sum(action_steps_matrix[j]) / \
                         abs(action_costs[j + 2])
+                    else:
+                        average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
+                            np.count_nonzero(action_steps_matrix[j])) / \
+                            abs(action_costs[j + 2])
                 opt_a = np.argmax(average_len_of_a) + 2
 
             if done:
