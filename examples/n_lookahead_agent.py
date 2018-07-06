@@ -9,7 +9,7 @@ def choose_action(env, i, o_list, r, a, emp_inspect, opt_a, eps, trans_matrix, n
     if i < eps:
         if (a == 1 and
            get_index_in_matrix(env, o_list[1]) == env.state_space.n - 2):
-            return np.random.randint(2, env.action_space.n)
+            return np.random.randint(2, env.action_space.n - 1)
         else:
             return 1
     else:
