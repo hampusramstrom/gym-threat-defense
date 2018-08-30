@@ -98,9 +98,6 @@ def n_myopic(env):
 
     np.set_printoptions(suppress=True)
 
-    # print "The inspection matrix"
-    # print emp_inspect
-
 
 env = gym.make('threat-defense-inspect-v0')
 n_myopic(env)

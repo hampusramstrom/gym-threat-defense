@@ -121,9 +121,9 @@ def n_lookahead(env, n):
 
                 for j in range(env.state_space.n):
                     if np.sum(emp_inspect[j]) == 0 and \
-                        np.sum(trans_matrix[j]) == 0:
-                            emp_inspect[j] = emp_inspect[j] / 1
-                            trans_matrix[j] = trans_matrix[j] / 1
+                                              np.sum(trans_matrix[j]) == 0:
+                        emp_inspect[j] = emp_inspect[j] / 1
+                        trans_matrix[j] = trans_matrix[j] / 1
                     elif np.sum(emp_inspect[j]) == 0:
                         emp_inspect[j] = emp_inspect[j] / 1
                         trans_matrix[j] = trans_matrix[j] / \
