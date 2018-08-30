@@ -68,18 +68,20 @@ def n_myopic(env):
             t_since_a += 1
             if i < eps and a > 1:
                 if last_a < env.action_space.n:
-                    action_steps_matrix[last_a - 2, action_steps_ind[last_a - 2]] \
-                        = t_since_a
+                    action_steps_matrix[last_a - 2,
+                        action_steps_ind[last_a - 2]] = t_since_a
                     action_steps_ind[last_a - 2] += 1
                 t_since_a = 0
                 last_a = a
             elif i == eps:
                 for j in range(len(action_steps_matrix)):
                     if np.count_nonzero(action_steps_matrix[j]) == 0:
-                        average_len_of_a[j] = np.sum(action_steps_matrix[j]) / \
-                        abs(action_costs[j + 2])
+                        average_len_of_a[j] = \
+                            np.sum(action_steps_matrix[j]) / \
+                            abs(action_costs[j + 2])
                     else:
-                        average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
+                        average_len_of_a[j] = \
+                            (np.sum(action_steps_matrix[j]) / \
                             np.count_nonzero(action_steps_matrix[j])) / \
                             abs(action_costs[j + 2])
                 opt_a = np.argmax(average_len_of_a) + 2
