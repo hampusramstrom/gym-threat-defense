@@ -14,7 +14,6 @@ def choose_action(env, i, o_list, r, a, emp_inspect, opt_a, eps):  # noqa
             return 1
     else:
         ind_o = get_index_in_matrix(env, o_list[0])
-        # Best states are [27, 28].
         if np.argmax(emp_inspect[ind_o]) in [27, 28]:
             return opt_a
         else:
@@ -27,7 +26,7 @@ def get_index_in_matrix(env, observation):
             return i
 
 
-def n_myopic(env): # noqa: C901
+def n_myopic(env):  # noqa: C901
     emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
     emp_inspect[env.observation_space.n - 1, env.state_space.n - 1] = 1
     num_episodes = 800

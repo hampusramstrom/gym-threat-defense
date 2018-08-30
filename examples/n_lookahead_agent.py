@@ -53,7 +53,7 @@ def update_matrixes(emp_inspect, trans_matrix, a, o_list, old_ind_s):
     return emp_inspect, trans_matrix, old_ind_s
 
 
-def n_lookahead(env, n): # noqa: C901
+def n_lookahead(env, n):  # noqa: C901
     emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
     trans_matrix = np.zeros([env.state_space.n, env.state_space.n])
 
