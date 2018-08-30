@@ -27,7 +27,7 @@ def get_index_in_matrix(env, observation):
             return i
 
 
-def n_myopic(env):
+def n_myopic(env): # noqa: C901
     emp_inspect = np.zeros([env.observation_space.n, env.state_space.n])
     emp_inspect[env.observation_space.n - 1, env.state_space.n - 1] = 1
     num_episodes = 800
