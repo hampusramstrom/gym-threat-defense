@@ -100,7 +100,8 @@ def n_lookahead(env, n):
 
             if i < eps and a > 1:
                 if last_a < env.action_space.n:
-                    action_steps_matrix[last_a - 2,
+                    action_steps_matrix[
+                        last_a - 2,
                         action_steps_ind[last_a - 2]] = t_since_a
                     action_steps_ind[last_a - 2] += 1
                 t_since_a = 0
@@ -112,8 +113,8 @@ def n_lookahead(env, n):
                             np.sum(action_steps_matrix[j]) / \
                             abs(action_costs[j + 2])
                     else:
-                        average_len_of_a[j] = \
-                            (np.sum(action_steps_matrix[j]) /
+                        average_len_of_a[j] = (
+                            np.sum(action_steps_matrix[j]) /
                             np.count_nonzero(action_steps_matrix[j])) / \
                             abs(action_costs[j + 2])
                 opt_a = np.argmax(average_len_of_a) + 2
@@ -121,8 +122,8 @@ def n_lookahead(env, n):
                 for j in range(env.state_space.n):
                     if np.sum(emp_inspect[j]) == 0 and \
                         np.sum(trans_matrix[j]) == 0:
-                        emp_inspect[j] = emp_inspect[j] / 1
-                        trans_matrix[j] = trans_matrix[j] / 1
+                            emp_inspect[j] = emp_inspect[j] / 1
+                            trans_matrix[j] = trans_matrix[j] / 1
                     elif np.sum(emp_inspect[j]) == 0:
                         emp_inspect[j] = emp_inspect[j] / 1
                         trans_matrix[j] = trans_matrix[j] / \
