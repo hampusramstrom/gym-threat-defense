@@ -113,7 +113,7 @@ def n_lookahead(env, n):
                             abs(action_costs[j + 2])
                     else:
                         average_len_of_a[j] = \
-                            (np.sum(action_steps_matrix[j]) / \
+                            (np.sum(action_steps_matrix[j]) /
                             np.count_nonzero(action_steps_matrix[j])) / \
                             abs(action_costs[j + 2])
                 opt_a = np.argmax(average_len_of_a) + 2
@@ -128,10 +128,12 @@ def n_lookahead(env, n):
                         trans_matrix[j] = trans_matrix[j] / \
                             np.sum(trans_matrix[j])
                     elif np.sum(trans_matrix[j]) == 0:
-                        emp_inspect[j] = emp_inspect[j] / np.sum(emp_inspect[j])
+                        emp_inspect[j] = emp_inspect[j] / \
+                            np.sum(emp_inspect[j])
                         trans_matrix[j] = trans_matrix[j] / 1
                     else:
-                        emp_inspect[j] = emp_inspect[j] / np.sum(emp_inspect[j])
+                        emp_inspect[j] = emp_inspect[j] / \
+                            np.sum(emp_inspect[j])
                         trans_matrix[j] = trans_matrix[j] / \
                             np.sum(trans_matrix[j])
 
