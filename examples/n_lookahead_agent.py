@@ -28,7 +28,7 @@ def choose_action(env, i, o_list, r, a, emp_inspect, opt_a, eps, trans_matrix, n
 
         tot_prob = 1 - prob
 
-        if tot_prob > 0.4 or ind_o == env.state_space.n - 1:
+        if tot_prob > 0.5 or ind_o == env.state_space.n - 1:
             return opt_a
         else:
             return 0
@@ -60,16 +60,16 @@ def n_lookahead(env, n):
     emp_inspect[env.observation_space.n - 1, env.state_space.n - 1] = 1
     trans_matrix[env.observation_space.n - 1, env.state_space.n - 1] = 1
 
-    num_episodes = 800
-    eps = 400
+    num_episodes = 1000
+    eps = 100
     rewards = []
 
     action_steps = []
     action_steps.append((4,))
 
-    action_steps_matrix = np.zeros([env.action_space.n - 2, 100*eps])
-    action_steps_ind = np.zeros(env.action_space.n - 2, dtype=int)
-    average_len_of_a = np.zeros(env.action_space.n - 2)
+    action_steps_matrix = np.zeros([env.action_space.n - 3, 100*eps])
+    action_steps_ind = np.zeros(env.action_space.n - 3, dtype=int)
+    average_len_of_a = np.zeros(env.action_space.n - 3)
     action_costs = [0, -0.2, -1, -1, -5]
     opt_a = 0
 
@@ -82,7 +82,7 @@ def n_lookahead(env, n):
         old_ind_s = 0
 
         t_since_a = 0
-        last_a = 4
+        last_a = env.action_space.n
 
         while True:
             a = choose_action(env, i, o_list, old_r, old_a, emp_inspect,
@@ -99,21 +99,36 @@ def n_lookahead(env, n):
             t_since_a += 1
 
             if i < eps and a > 1:
-                action_steps_matrix[last_a - 2, action_steps_ind[last_a - 2]] \
-                    = t_since_a
-                action_steps_ind[last_a - 2] += 1
+                if last_a < env.action_space.n:
+                    action_steps_matrix[last_a - 2, action_steps_ind[last_a - 2]] \
+                        = t_since_a
+                    action_steps_ind[last_a - 2] += 1
                 t_since_a = 0
                 last_a = a
             elif i == eps:
                 for j in range(len(action_steps_matrix)):
-                    average_len_of_a[j] = np.sum(action_steps_matrix[j]) / \
-                        np.count_nonzero(action_steps_matrix[j]) + \
-                        action_costs[j + 2]
+                    if np.count_nonzero(action_steps_matrix[j]) == 0:
+                        average_len_of_a[j] = np.sum(action_steps_matrix[j]) / \
+                        abs(action_costs[j + 2])
+                    else:
+                        average_len_of_a[j] = (np.sum(action_steps_matrix[j]) / \
+                            np.count_nonzero(action_steps_matrix[j])) / \
+                            abs(action_costs[j + 2])
                 opt_a = np.argmax(average_len_of_a) + 2
 
                 for j in range(env.state_space.n):
-                    emp_inspect[j] = emp_inspect[j] / np.sum(emp_inspect[j])
-                    trans_matrix[j] = trans_matrix[j] / np.sum(trans_matrix[j])
+                    if np.sum(emp_inspect[j]) == 0 and np.sum(trans_matrix[j]) == 0:
+                        emp_inspect[j] = emp_inspect[j] / 1
+                        trans_matrix[j] = trans_matrix[j] / 1
+                    elif np.sum(emp_inspect[j]) == 0:
+                        emp_inspect[j] = emp_inspect[j] / 1
+                        trans_matrix[j] = trans_matrix[j] / np.sum(trans_matrix[j])
+                    elif np.sum(trans_matrix[j]) == 0:
+                        emp_inspect[j] = emp_inspect[j] / np.sum(emp_inspect[j])
+                        trans_matrix[j] = trans_matrix[j] / 1
+                    else:
+                        emp_inspect[j] = emp_inspect[j] / np.sum(emp_inspect[j])
+                        trans_matrix[j] = trans_matrix[j] / np.sum(trans_matrix[j])
 
             if done:
                 break
